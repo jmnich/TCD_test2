@@ -1,0 +1,3 @@
+task_wrapper.cpp:10:1:TaskClass::TaskClass(const char*, long unsigned int, short unsigned int)	32	static
+task_wrapper.cpp:21:1:TaskClass::~TaskClass()	16	static
+task_wrapper.cpp:23:6:static void TaskClass::taskFunction(void*)	24	static
