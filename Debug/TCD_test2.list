@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00006be4  080001e0  080001e0  000101e0  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000094  08006dc4  08006dc4  00016dc4  2**2
+  2 .rodata       00000098  08006dc4  08006dc4  00016dc4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08006e58  08006e58  00020078  2**0
+  3 .ARM.extab    00000000  08006e5c  08006e5c  00020078  2**0
                   CONTENTS
-  4 .ARM          00000008  08006e58  08006e58  00016e58  2**2
+  4 .ARM          00000008  08006e5c  08006e5c  00016e5c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08006e60  08006e60  00020078  2**0
+  5 .preinit_array 00000000  08006e64  08006e64  00020078  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08006e60  08006e60  00016e60  2**2
+  6 .init_array   00000004  08006e64  08006e64  00016e64  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08006e64  08006e64  00016e64  2**2
+  7 .fini_array   00000004  08006e68  08006e68  00016e68  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000078  20000000  08006e68  00020000  2**2
+  8 .data         00000078  20000000  08006e6c  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000cacc  20000078  08006ee0  00020078  2**2
+  9 .bss          0000cacc  20000078  08006ee4  00020078  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  2000cb44  08006ee0  0002cb44  2**0
+ 10 ._user_heap_stack 00000604  2000cb44  08006ee4  0002cb44  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020078  2**0
                   CONTENTS, READONLY
@@ -1668,7 +1668,7 @@ LoopForever:
   ldr r1, =_edata
  8000bb4:	20000078 	.word	0x20000078
   ldr r2, =_sidata
- 8000bb8:	08006e68 	.word	0x08006e68
+ 8000bb8:	08006e6c 	.word	0x08006e6c
   ldr r2, =_sbss
  8000bbc:	20000078 	.word	0x20000078
   ldr r4, =_ebss
@@ -4548,7 +4548,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8001c24:	40022000 	.word	0x40022000
  8001c28:	40021000 	.word	0x40021000
  8001c2c:	04c4b400 	.word	0x04c4b400
- 8001c30:	08006e10 	.word	0x08006e10
+ 8001c30:	08006e14 	.word	0x08006e14
  8001c34:	20000000 	.word	0x20000000
  8001c38:	20000004 	.word	0x20000004
 
@@ -4729,7 +4729,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8001d38:	4618      	mov	r0, r3
  8001d3a:	bd80      	pop	{r7, pc}
  8001d3c:	40021000 	.word	0x40021000
- 8001d40:	08006e20 	.word	0x08006e20
+ 8001d40:	08006e24 	.word	0x08006e24
 
 08001d44 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -4756,7 +4756,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8001d64:	4618      	mov	r0, r3
  8001d66:	bd80      	pop	{r7, pc}
  8001d68:	40021000 	.word	0x40021000
- 8001d6c:	08006e20 	.word	0x08006e20
+ 8001d6c:	08006e24 	.word	0x08006e24
 
 08001d70 <HAL_RCC_GetClockConfig>:
   *         will be configured.
@@ -8718,7 +8718,7 @@ HAL_StatusTypeDef UART_SetConfig(UART_HandleTypeDef *huart)
  8003460:	3720      	adds	r7, #32
  8003462:	46bd      	mov	sp, r7
  8003464:	e8bd 8890 	ldmia.w	sp!, {r4, r7, fp, pc}
- 8003468:	08006e28 	.word	0x08006e28
+ 8003468:	08006e2c 	.word	0x08006e2c
  800346c:	00f42400 	.word	0x00f42400
 
 08003470 <UART_AdvFeatureConfig>:
@@ -9953,7 +9953,7 @@ TaskClass::TaskClass(char const * _name, unsigned portBASE_TYPE _priority, unsig
  8003b32:	3710      	adds	r7, #16
  8003b34:	46bd      	mov	sp, r7
  8003b36:	bd80      	pop	{r7, pc}
- 8003b38:	08006e48 	.word	0x08006e48
+ 8003b38:	08006e4c 	.word	0x08006e4c
  8003b3c:	08003b41 	.word	0x08003b41
 
 08003b40 <_ZN9TaskClass12taskFunctionEPv>:
@@ -9998,7 +9998,7 @@ UART_Wrapper::UART_Wrapper(UART_HandleTypeDef * _UART_Handle, uint8_t * _bufPtr,
  8003b6a:	607a      	str	r2, [r7, #4]
  8003b6c:	603b      	str	r3, [r7, #0]
 		void(**_subscribersArray)(Observable*, void*), int _observersArraySize) :
-		TaskClass("1", 2), Observable(_subscribersArray, _observersArraySize)
+		TaskClass("uartRx", 2), Observable(_subscribersArray, _observersArraySize)
  8003b6e:	68f8      	ldr	r0, [r7, #12]
  8003b70:	f44f 7300 	mov.w	r3, #512	; 0x200
  8003b74:	2202      	movs	r2, #2
@@ -10080,7 +10080,7 @@ UART_Wrapper::UART_Wrapper(UART_HandleTypeDef * _UART_Handle, uint8_t * _bufPtr,
  8003bf0:	46bd      	mov	sp, r7
  8003bf2:	bd80      	pop	{r7, pc}
  8003bf4:	08006df4 	.word	0x08006df4
- 8003bf8:	08006e54 	.word	0x08006e54
+ 8003bf8:	08006e58 	.word	0x08006e58
 
 08003bfc <_ZN12UART_Wrapper4taskEv>:
 	}
@@ -10719,7 +10719,6 @@ void UART_Wrapper::UART_RxISR_8BIT(UART_HandleTypeDef *huart) {
 	HAL_UART_RxCpltCallback(huart);
  8003fd8:	6878      	ldr	r0, [r7, #4]
  8003fda:	f7fc fc11 	bl	8000800 <HAL_UART_RxCpltCallback>
-
 }
  8003fde:	bf00      	nop
  8003fe0:	3708      	adds	r7, #8
@@ -14309,7 +14308,7 @@ void vTaskStartScheduler( void )
  8005234:	46bd      	mov	sp, r7
  8005236:	bd80      	pop	{r7, pc}
  8005238:	200001c0 	.word	0x200001c0
- 800523c:	08006df8 	.word	0x08006df8
+ 800523c:	08006dfc 	.word	0x08006dfc
  8005240:	0800584d 	.word	0x0800584d
  8005244:	200001bc 	.word	0x200001bc
  8005248:	200001a8 	.word	0x200001a8
@@ -16572,7 +16571,7 @@ BaseType_t xReturn = pdFAIL;
  8005e6e:	bf00      	nop
  8005e70:	200001f8 	.word	0x200001f8
  8005e74:	200001fc 	.word	0x200001fc
- 8005e78:	08006e00 	.word	0x08006e00
+ 8005e78:	08006e04 	.word	0x08006e04
  8005e7c:	08005fb1 	.word	0x08005fb1
 
 08005e80 <xTimerGenericCommand>:
@@ -17607,7 +17606,7 @@ static void prvCheckForValidListAndQueue( void )
  8006428:	200001dc 	.word	0x200001dc
  800642c:	200001f0 	.word	0x200001f0
  8006430:	200001f4 	.word	0x200001f4
- 8006434:	08006e08 	.word	0x08006e08
+ 8006434:	08006e0c 	.word	0x08006e0c
 
 08006438 <pxPortInitialiseStack>:
 
@@ -19118,10 +19117,10 @@ uint8_t *puc;
  8006ce6:	4798      	blx	r3
  8006ce8:	3501      	adds	r5, #1
  8006cea:	e7f2      	b.n	8006cd2 <__libc_init_array+0x1e>
- 8006cec:	08006e60 	.word	0x08006e60
- 8006cf0:	08006e60 	.word	0x08006e60
- 8006cf4:	08006e60 	.word	0x08006e60
- 8006cf8:	08006e64 	.word	0x08006e64
+ 8006cec:	08006e64 	.word	0x08006e64
+ 8006cf0:	08006e64 	.word	0x08006e64
+ 8006cf4:	08006e64 	.word	0x08006e64
+ 8006cf8:	08006e68 	.word	0x08006e68
 
 08006cfc <memcpy>:
  8006cfc:	b510      	push	{r4, lr}
