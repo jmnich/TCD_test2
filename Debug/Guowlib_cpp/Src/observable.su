@@ -1,6 +1,0 @@
-observable.cpp:10:1:Observable::Observable(void (**)(Observable*, void*), int)	24	static
-observable.cpp:17:6:void Observable::subscribe(void (*)(Observable*, void*))	16	static
-observable.cpp:23:6:void Observable::unsubscribe(void (*)(Observable*, void*))	32	static
-observable.cpp:53:5:int Observable::getCurrentSubscribersCount()	16	static
-observable.cpp:57:5:int Observable::getMaxSubscribersCount()	16	static
-observable.cpp:61:6:void Observable::notify()	24	static
