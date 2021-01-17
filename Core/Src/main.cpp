@@ -30,6 +30,7 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "app_freertos.c"
+#include "tcd1304_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
