@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -51,7 +52,8 @@
 
 /* USER CODE BEGIN PV */
 uint8_t some_shit;
-UART_Wrapper * uart_wrap;
+UART_Wrapper * uartWrap;
+TCD1304Driver * tcdDrv;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,7 +88,7 @@ void operator delete[]( void * ptr )
 void led2(Observable * o, void * d) {
 	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 	char * s = (char *)d;
-	uart_wrap->sendString((const char *)s);
+	uartWrap->sendString((const char *)s);
 	delete s;
 }
 /* USER CODE END 0 */
@@ -120,17 +122,30 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_UART4_Init();
+  MX_TIM3_Init();
+  MX_TIM2_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
   int subsArraySize = 16;
 
-  void(**subsArray)(Observable*, void*) =
-		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(subsArray));
+  void(**uartSubsArray)(Observable*, void*) =
+		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(uartSubsArray));
 
-  uint8_t * rxbuf = new uint8_t[1024];
-  uint32_t rxBufSize = 1024;
-  uart_wrap = new UART_Wrapper(&huart4, rxbuf, rxBufSize, subsArray, subsArraySize);
-  uart_wrap->subscribe(&led2);
-  uart_wrap->startRx();
+  uint8_t * uartRxBuf = new uint8_t[1024];
+  uint32_t uartRxBufSize = 1024;
+  uartWrap = new UART_Wrapper(&huart4, uartRxBuf, uartRxBufSize, uartSubsArray, subsArraySize);
+  uartWrap->subscribe(&led2);
+  uartWrap->startRx();
+
+  void(**tcdSubsArray)(Observable*, void*) =
+		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(tcdSubsArray));
+
+  uint32_t * tcdBuf = new uint32_t[3694];
+  tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, tcdBuf, tcdSubsArray, subsArraySize);
+  tcdDrv->initialize();
+
+//  HAL_TIM_OC_Init(&htim2);
+//  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -171,7 +186,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN = 34;
+  RCC_OscInitStruct.PLL.PLLN = 32;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -206,7 +221,7 @@ void SystemClock_Config(void)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
-	uart_wrap->rxCallback();
+	uartWrap->rxCallback();
 }
 
 /* USER CODE END 4 */

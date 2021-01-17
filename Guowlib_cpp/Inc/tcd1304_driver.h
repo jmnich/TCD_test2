@@ -19,17 +19,22 @@
 class TCD1304Driver : public TaskClass, public Observable {
 
 private:
-	TIM_HandleTypeDef * masterClock_;
+	TIM_HandleTypeDef * masterTimer_;
+	TIM_HandleTypeDef * icgTimer_;
+	TIM_HandleTypeDef * shTimer_;
 	uint32_t * outputBuffer_;
 	volatile bool operationInProgress_;
 	const int sensingElementsCount_ = 3648;
+	const int dummyElementsCount_ = 46;
 
 	void configureTimers();
 
 public:
-	TCD1304Driver(TIM_HandleTypeDef * _masterClock, uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*),
-			int _observersArraySize);
+	TCD1304Driver(TIM_HandleTypeDef * _masterTimer, TIM_HandleTypeDef * _icgTimer, TIM_HandleTypeDef * _shTimer,
+			uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*), int _observersArraySize);
 	~TCD1304Driver();
+
+	void initialize();
 
 	void task() override;
 
