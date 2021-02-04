@@ -55,8 +55,8 @@ void TCD1304Driver::startOperation()
 	 */
 
 	// ICG timer
-	icgTimer_->Init.Prescaler = 79;
-	icgTimer_->Init.Period = 14999;
+	icgTimer_->Init.Prescaler = 159;
+	icgTimer_->Init.Period = 99999;
 	HAL_TIM_Base_Init(icgTimer_);
 
 	TIM_OC_InitTypeDef sConfigOC = {0};
@@ -67,13 +67,13 @@ void TCD1304Driver::startOperation()
 	HAL_TIM_PWM_ConfigChannel(icgTimer_, &sConfigOC, TIM_CHANNEL_1);
 
 	// SH timer
-	shTimer_->Init.Prescaler = 79;
-	shTimer_->Init.Period = 1499;
+	shTimer_->Init.Prescaler = 159;
+	shTimer_->Init.Period = 99;
 	HAL_TIM_Base_Init(shTimer_);
 
 	sConfigOC = {0};
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = 30;
+	sConfigOC.Pulse = 60;
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	HAL_TIM_PWM_ConfigChannel(shTimer_, &sConfigOC, TIM_CHANNEL_1);
