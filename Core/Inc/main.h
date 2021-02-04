@@ -65,8 +65,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define TIM3_CH1_MC_Pin GPIO_PIN_2
 #define TIM3_CH1_MC_GPIO_Port GPIOE
-#define LED1_Pin GPIO_PIN_12
-#define LED1_GPIO_Port GPIOF
 #define LED2_Pin GPIO_PIN_13
 #define LED2_GPIO_Port GPIOF
 #define LED3_Pin GPIO_PIN_14
