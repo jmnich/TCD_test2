@@ -146,7 +146,7 @@ int main(void)
 		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(tcdSubsArray));
 
   uint32_t * tcdBuf = new uint32_t[3694];
-  tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, &htim6, tcdBuf, tcdSubsArray, subsArraySize);
+  tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, &htim6, tcdBuf, tcdSubsArray, subsArraySize, &hadc1);
   tcdDrv->initialize();
 
 //  HAL_TIM_OC_Init(&htim2);
@@ -228,6 +228,11 @@ void SystemClock_Config(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 	uartWrap->rxCallback();
+}
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
+	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+	tcdDrv->ICGPulseCallback();
 }
 
 /* USER CODE END 4 */
