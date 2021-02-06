@@ -146,7 +146,7 @@ int main(void)
 		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(tcdSubsArray));
 
   uint32_t * tcdBuf = new uint32_t[3694];
-  tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, tcdBuf, tcdSubsArray, subsArraySize);
+  tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, &htim6, tcdBuf, tcdSubsArray, subsArraySize);
   tcdDrv->initialize();
 
 //  HAL_TIM_OC_Init(&htim2);

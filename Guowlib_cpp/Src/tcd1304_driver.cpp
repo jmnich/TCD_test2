@@ -8,12 +8,14 @@
 #include "tcd1304_driver.h"
 
 TCD1304Driver::TCD1304Driver(TIM_HandleTypeDef * _masterTimer, TIM_HandleTypeDef * _icgTimer, TIM_HandleTypeDef * _shTimer,
-		uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*), int _observersArraySize) :
+		TIM_HandleTypeDef * _adcTrigTimer, uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*),
+		int _observersArraySize) :
 		TaskClass("tcdDrv", 2), Observable(_subscribersArray, _observersArraySize)
 {
 	masterTimer_ = _masterTimer;
 	icgTimer_ = _icgTimer;
 	shTimer_ = _shTimer;
+	adcTrigTimer_ = _adcTrigTimer;
 
 	outputBuffer_ = _bufPtr;
 }
@@ -29,6 +31,9 @@ void TCD1304Driver::initialize()
 {
 	HAL_TIM_OC_Init(masterTimer_);
 	HAL_TIM_OC_Start(masterTimer_, TIM_CHANNEL_1);
+
+//	HAL_TIM_OC_Init(adcTrigTimer_);
+//	HAL_TIM_OC_Start_IT(adcTrigTimer_, TIM_CHANNEL_1);
 
 	startOperation();
 }

@@ -22,6 +22,7 @@ private:
 	TIM_HandleTypeDef * masterTimer_;
 	TIM_HandleTypeDef * icgTimer_;
 	TIM_HandleTypeDef * shTimer_;
+	TIM_HandleTypeDef * adcTrigTimer_;
 	uint32_t * outputBuffer_;
 	volatile bool operationInProgress_;
 	const int sensingElementsCount_ = 3648;
@@ -31,7 +32,8 @@ private:
 
 public:
 	TCD1304Driver(TIM_HandleTypeDef * _masterTimer, TIM_HandleTypeDef * _icgTimer, TIM_HandleTypeDef * _shTimer,
-			uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*), int _observersArraySize);
+			TIM_HandleTypeDef * _adcTrigTimer, uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*),
+			int _observersArraySize);
 	~TCD1304Driver();
 
 	void initialize();
