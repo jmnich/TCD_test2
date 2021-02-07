@@ -9,7 +9,7 @@
 #include "main.h"
 
 TCD1304Driver::TCD1304Driver(TIM_HandleTypeDef * _masterTimer, TIM_HandleTypeDef * _icgTimer, TIM_HandleTypeDef * _shTimer,
-		TIM_HandleTypeDef * _adcTrigTimer, uint32_t * _bufPtr, void(**_subscribersArray)(Observable*, void*),
+		TIM_HandleTypeDef * _adcTrigTimer, uint16_t * _bufPtr, void(**_subscribersArray)(Observable*, void*),
 		int _observersArraySize, ADC_HandleTypeDef * _outputADC) :
 		TaskClass("tcdDrv", 2), Observable(_subscribersArray, _observersArraySize)
 {
@@ -106,7 +106,7 @@ bool TCD1304Driver::isOperationInProgress()
 void TCD1304Driver::ICGPulseCallback()
 {
 	HAL_ADC_Init(outputADC_);
-	HAL_ADC_Start_DMA(outputADC_, outputBuffer_, sensingElementsCount_ + dummyElementsFront_ + dummyElementsBack_);
+	HAL_ADC_Start_DMA(outputADC_, (uint32_t *)outputBuffer_, sensingElementsCount_ + dummyElementsFront_ + dummyElementsBack_);
 	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 }
 

@@ -145,7 +145,7 @@ int main(void)
   void(**tcdSubsArray)(Observable*, void*) =
 		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(tcdSubsArray));
 
-  uint32_t * tcdBuf = new uint32_t[3694];
+  uint16_t * tcdBuf = new uint16_t[3694];
   tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, &htim6, tcdBuf, tcdSubsArray, subsArraySize, &hadc1);
   tcdDrv->initialize();
 
@@ -232,6 +232,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
 	tcdDrv->ICGPulseCallback();
+}
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
+	// TODO
 }
 
 /* USER CODE END 4 */
