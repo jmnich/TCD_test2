@@ -56,6 +56,8 @@
 uint8_t some_shit;
 UART_Wrapper * uartWrap;
 TCD1304Driver * tcdDrv;
+
+uint16_t * tcdBuf;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -145,7 +147,7 @@ int main(void)
   void(**tcdSubsArray)(Observable*, void*) =
 		  (void(**)(Observable*, void*))pvPortMalloc(subsArraySize * sizeof(tcdSubsArray));
 
-  uint16_t * tcdBuf = new uint16_t[3694];
+  tcdBuf = new uint16_t[3694];
   tcdDrv = new TCD1304Driver(&htim3, &htim2, &htim5, &htim6, tcdBuf, tcdSubsArray, subsArraySize, &hadc1);
   tcdDrv->initialize();
 
@@ -235,7 +237,8 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-	// TODO
+	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+	uartWrap->sendLargeBufferDMA((uint8_t *)tcdBuf, 3694 * 2);
 }
 
 /* USER CODE END 4 */

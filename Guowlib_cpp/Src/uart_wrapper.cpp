@@ -88,6 +88,11 @@ void UART_Wrapper::sendByte(uint8_t _b) {
 	HAL_UART_Transmit(UART_Handle_, &_b, 1, 1);
 }
 
+void UART_Wrapper::sendLargeBufferDMA(uint8_t * _buf, uint32_t _size)
+{
+	HAL_UART_Transmit_DMA(UART_Handle_, _buf, _size);
+}
+
 void UART_Wrapper::startRx() {
 	/* Check that a Rx process is not already ongoing */
 	if (UART_Handle_->RxState == HAL_UART_STATE_READY)

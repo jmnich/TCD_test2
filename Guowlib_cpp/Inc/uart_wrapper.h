@@ -32,6 +32,7 @@ public:
 	void sendString(const char* _s);
 	void sendBytes(const uint8_t * _b, uint32_t _size);
 	void sendByte(uint8_t _b);
+	void sendLargeBufferDMA(uint8_t * _buf, uint32_t _size);
 	void startRx();
 	void stopRx();
 	void rxCallback();
